@@ -1,5 +1,9 @@
 # Vector
 
+![test](https://github.com/idexter/vector/workflows/test/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/idexter/vector)](https://goreportcard.com/report/github.com/idexter/vector)
+[![codecov](https://codecov.io/gh/idexter/vector/branch/master/graph/badge.svg?token=LHA4hN5boC)](undefined)
+
 This library provides basic implementation of linear algebra "vector" data structure with basic operations.
 It was made as small test assignment. So only basic things has been implemented.
 

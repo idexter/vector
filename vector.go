@@ -2,10 +2,14 @@ package vector
 
 import "math"
 
+// Vector described mathematical Vector.
+// It stores []float64 array under the hood.
 type Vector struct {
 	data []float64
 }
 
+// NewVector creates new vector.
+// It panics when there is less than 2 arguments provided.
 func NewVector(data ...float64) Vector {
 	if len(data) < 2 {
 		panic("vector should have at least 2 dimensions")
@@ -13,6 +17,8 @@ func NewVector(data ...float64) Vector {
 	return Vector{data: data}
 }
 
+// NewVectorFromFloat64Array creates new vector from float64 slice.
+// It panics when array length is less than 2.
 func NewVectorFromFloat64Array(data []float64) Vector {
 	if len(data) < 2 {
 		panic("vector should have at least 2 dimensions")
@@ -20,18 +26,24 @@ func NewVectorFromFloat64Array(data []float64) Vector {
 	return Vector{data: data}
 }
 
+// Dimension returns length of underlying array.
 func (v Vector) Dimension() int {
 	return len(v.data)
 }
 
+// Length returns vector length.
 func (v Vector) Length() float64 {
 	return math.Sqrt(v.DotProduct(v))
 }
 
+// ToFloat64Array Convert vector to []float64 array.
 func (v Vector) ToFloat64Array() []float64 {
 	return v.data
 }
 
+// Add adds v1 to current vector.
+// It don't mutate current vector but return a new one.
+// Also this function panics when vector dimensions are not the same.
 func (v Vector) Add(v1 Vector) Vector {
 	if v.Dimension() != v1.Dimension() {
 		panic("vectors should have at least 2 points")
@@ -43,6 +55,9 @@ func (v Vector) Add(v1 Vector) Vector {
 	return Vector{data: output}
 }
 
+// Subtract subtracts v1 from current vector.
+// It don't mutate current vector but return a new one.
+// Also this function panics when vector dimensions are not the same.
 func (v Vector) Subtract(v1 Vector) Vector {
 	if v.Dimension() != v1.Dimension() {
 		panic("vectors should have same dimension")
@@ -54,6 +69,8 @@ func (v Vector) Subtract(v1 Vector) Vector {
 	return Vector{data: output}
 }
 
+// ScalarMultiply multiply current vector with scalar.
+// It don't mutate current vector but return a new one.
 func (v Vector) ScalarMultiply(scalar float64) Vector {
 	output := make([]float64, v.Dimension())
 	for k := range v.data {
@@ -62,6 +79,9 @@ func (v Vector) ScalarMultiply(scalar float64) Vector {
 	return Vector{data: output}
 }
 
+// DotProduct do dot product of current vector with v1.
+// It don't mutate current vector but return a new one.
+// Also this function panics when vector dimensions are not the same.
 func (v Vector) DotProduct(v1 Vector) float64 {
 	if v.Dimension() != v1.Dimension() {
 		panic("vectors should have same dimension")
@@ -73,6 +93,9 @@ func (v Vector) DotProduct(v1 Vector) float64 {
 	return output
 }
 
+// CrossProduct do cross product of current vector with v1.
+// It don't mutate current vector but return a new one.
+// Also this function panics when vector dimension are not equal to 3.
 func (v Vector) CrossProduct(v1 Vector) Vector {
 	if v.Dimension() == 3 && v1.Dimension() == 3 {
 		output := make([]float64, 3)
