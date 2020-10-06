@@ -37,7 +37,7 @@ func (v Vector) Add(v1 Vector) Vector {
 		panic("vectors should have at least 2 points")
 	}
 	output := make([]float64, v.Dimension())
-	for k, _ := range v.data {
+	for k := range v.data {
 		output[k] = v.data[k] + v1.data[k]
 	}
 	return Vector{data: output}
@@ -48,7 +48,7 @@ func (v Vector) Subtract(v1 Vector) Vector {
 		panic("vectors should have same dimension")
 	}
 	output := make([]float64, v.Dimension())
-	for k, _ := range v.data {
+	for k := range v.data {
 		output[k] = v.data[k] - v1.data[k]
 	}
 	return Vector{data: output}
@@ -56,7 +56,7 @@ func (v Vector) Subtract(v1 Vector) Vector {
 
 func (v Vector) ScalarMultiply(scalar float64) Vector {
 	output := make([]float64, v.Dimension())
-	for k, _ := range v.data {
+	for k := range v.data {
 		output[k] = v.data[k] * scalar
 	}
 	return Vector{data: output}
@@ -67,7 +67,7 @@ func (v Vector) DotProduct(v1 Vector) float64 {
 		panic("vectors should have same dimension")
 	}
 	var output float64
-	for k, _ := range v.data {
+	for k := range v.data {
 		output += v.data[k] * v1.data[k]
 	}
 	return output
