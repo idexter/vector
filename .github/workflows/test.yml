@@ -1,0 +1,35 @@
+name: test
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - master
+  pull_request:
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.15'
+
+      - name: Run golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          version: v1.29
+
+      - name: Run tests (with coverage)
+        run: |
+          go get github.com/axw/gocov/...
+          go get github.com/AlekSi/gocov-xml
+          go mod tidy
+          go test -race -covermode=atomic -coverprofile=coverage.txt ./...
+          gocov convert coverage.txt | gocov-xml > coverage.xml
+
+      - name: Send coverage report
+        run:  bash <(curl -s https://codecov.io/bash) -f coverage.xml
